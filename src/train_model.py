@@ -61,9 +61,11 @@ def train_with_tracking(data_path: str, params: dict):
 
 if __name__ == "__main__":
     params = {
-        "iterations": 100,
-        "depth": 6,
-        "learning_rate": 0.1,
-        "random_seed": 42
+        "iterations": 500,
+        "depth": 8,
+        "learning_rate": 0.05,
+        "random_seed": 42,
+        "auto_class_weights": "Balanced",
+        "l2_leaf_reg": 3
     }
     train_with_tracking("data/HI-Small_Trans.csv", params)

@@ -1,8 +1,8 @@
-import mlflow
+from catboost import CatBoostClassifier
 import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
-from observability import tracer
+from src.observability import tracer
 
 app = FastAPI(title="AML Fraud Detection API")
 
@@ -30,7 +30,8 @@ def predict(transaction: Transaction):
         span.set_attribute("from_bank", transaction.from_bank)
         span.set_attribute("amount_received", transaction.amount_received)
 
-        model = mlflow.catboost.load_model("models:/aml-fraud-detection/latest")
+        model = CatBoostClassifier()
+        model.load_model("models/aml_model.cbm")
 
         data = pd.DataFrame([{
             "From Bank": transaction.from_bank,
